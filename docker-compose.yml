@@ -1,0 +1,35 @@
+version: "3.9"
+
+services:
+    app:
+        build:
+            context: .
+            dockerfile: Dockerfile
+        container_name: laravel-new-app
+        ports:
+            - "12000:12000"
+        volumes:
+            - ./:/var/www/html
+        depends_on:
+            - mysql
+        extra_hosts:
+            - "host.docker.internal:host-gateway"
+
+    mysql:
+        image: mysql:8.4
+        container_name: laravel-new-mysql
+        restart: always
+        environment:
+            MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+            MYSQL_DATABASE: ${DB_DATABASE}
+            MYSQL_USER: ${DB_USERNAME}
+            MYSQL_PASSWORD: ${DB_PASSWORD}
+        ports:
+            - "3306:3306"
+        command: ["mysqld", "--mysql-native-password=ON"]
+        volumes:
+            - mysql_data:/var/lib/mysql
+            - ./mysql-init:/docker-entrypoint-initdb.d
+
+volumes:
+    mysql_data:
