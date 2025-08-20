@@ -5,3 +5,7 @@
 
 ```bash
 sudo docker-compose stop && sudo docker-compose build && sudo docker-compose up -d
+```
+
+## 📖 포스트맨 API 관련 문서 
+- [링크](https://documenter.getpostman.com/view/14380383/2sB3BKG9Dc)
